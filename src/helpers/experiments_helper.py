@@ -1,6 +1,6 @@
 import logging
 
-from src.experiments import get_exp_name, get_exp_data_dir, get_exp_models_dir, data_cleanup_conf, get_train_data_path
+from src.iot23 import get_exp_name, get_exp_data_dir, get_exp_models_dir, data_cleanup, get_train_data_path
 from src.helpers.file_helper import mk_dir
 from src.helpers.data_helper import split_into_train_and_test
 from src.helpers.model_helper import create_models
@@ -51,7 +51,7 @@ def run_combination(data_dir,
     mk_dir(experiment_models_dir)
 
     # Train models
-    classification_col = data_cleanup_conf["classification_col"]
+    classification_col = data_cleanup["classification_col"]
     train_data_file_path = experiment_data_dir + get_train_data_path(data_file_name)
     create_models(experiment_models_dir,
                   train_data_file_path,

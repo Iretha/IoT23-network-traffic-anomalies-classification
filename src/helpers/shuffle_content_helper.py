@@ -4,7 +4,7 @@ import os
 from random import shuffle, randint
 import time
 
-from src.helpers.file_helper import get_file_size_in_gb, combine_files_content, get_file_size_in_mb
+from src.helpers.file_helper import get_file_size_in_gb, combine_files_content
 from src.helpers.log_helper import log_duration
 
 

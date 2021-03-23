@@ -1,14 +1,5 @@
-from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.naive_bayes import GaussianNB
-from sklearn.neural_network import MLPClassifier
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
-from sklearn.svm import LinearSVC
-from sklearn.tree import DecisionTreeClassifier
-
 from config import iot23_data_dir, iot23_experiments_dir
-from src.experiments import data_combinations, feature_combinations
+from src.iot23 import data_samples, feature_selections
 from src.helpers.log_helper import add_logger
 from src.helpers.experiments_helper import run_combinations
 
@@ -19,16 +10,16 @@ data_file_dir = iot23_data_dir
 data_combinations = [
     # data_combinations['S13_R_100_000'],  # 10 sec
     # data_combinations['S13_R_5_000_000'],  # 30 sec
-    data_combinations['S04_R_5_000_000'],  # 30 sec
-    data_combinations['S16_R_5_000_000'],  # 30 sec
+    data_samples['S04_R_5_000_000'],  # 30 sec
+    data_samples['S16_R_5_000_000'],  # 30 sec
 ]
 
 # Selected Features
 features = [
-    feature_combinations['F14'],
-    feature_combinations['F17'],
-    feature_combinations['F18'],
-    feature_combinations['F19'],
+    feature_selections['F14'],
+    feature_selections['F17'],
+    feature_selections['F18'],
+    feature_selections['F19'],
 ]
 
 # Selected Algorithms

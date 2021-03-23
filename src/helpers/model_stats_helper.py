@@ -9,9 +9,8 @@ import re
 
 from sklearn.inspection import permutation_importance
 from sklearn.metrics import accuracy_score, classification_report, f1_score, recall_score, precision_score, balanced_accuracy_score
-from sklearn.pipeline import Pipeline
 
-from src.experiments import get_exp_name, get_exp_models_dir, get_exp_results_dir, get_exp_data_dir, data_cleanup_conf, get_test_data_path
+from src.iot23 import get_exp_name, get_exp_models_dir, get_exp_results_dir, get_exp_data_dir, data_cleanup, get_test_data_path
 from src.helpers.dataframe_helper import load_data
 from src.helpers.file_helper import mk_dir, write_json_file
 from src.helpers.log_helper import log_duration
@@ -48,7 +47,7 @@ def explore_experiment_results(exp_home_dir,
 
     # Load test data
     experiment_data_dir = exp_home_dir + get_exp_data_dir(exp_name)
-    classification_col = data_cleanup_conf["classification_col"]
+    classification_col = data_cleanup["classification_col"]
     test_data_file_path = experiment_data_dir + get_test_data_path(data_file_name)
     x_test, y_test = load_data(test_data_file_path, classification_col)
 

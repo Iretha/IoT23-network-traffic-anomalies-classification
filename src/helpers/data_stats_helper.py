@@ -1,7 +1,7 @@
 import logging
 import time
 
-from src.experiments import data_cleanup_conf, get_exp_name, get_exp_data_dir, get_train_data_path, get_test_data_path
+from src.iot23 import data_cleanup, get_exp_name, get_exp_data_dir, get_train_data_path, get_test_data_path
 from src.helpers.dataframe_helper import df_get
 from src.helpers.log_helper import log_duration
 from src.helpers.plt_helper import plot_correlations, plot_class_values_distribution, plot_attr_values_distribution
@@ -32,11 +32,11 @@ def explore_data_combinations(data_dir,
 
 
 def explore_experiments_data(exp_home_dir,
-                               data_combinations,
-                               feature_combinations,
-                               plot_corr=False,
-                               plot_cls_dist=False,
-                               plot_attr_dist=False):
+                             data_combinations,
+                             feature_combinations,
+                             plot_corr=False,
+                             plot_cls_dist=False,
+                             plot_attr_dist=False):
     for data_combination in data_combinations:
         for feature_combination in feature_combinations:
             exp_name = get_exp_name(data_combination, feature_combination)
@@ -89,7 +89,7 @@ def __explore_data(data_file_path,
     if plot_cls_dist:
         plot_class_values_distribution(data_dir,
                                        df,
-                                       data_cleanup_conf['classification_col'],
+                                       data_cleanup['classification_col'],
                                        title='\n' + info + '\n\n' + "Class Frequency",
                                        file_name=output_file_name_prefix + "_class_values_distribution.png",
                                        export=True)

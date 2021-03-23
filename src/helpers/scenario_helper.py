@@ -1,7 +1,7 @@
 import logging
 import time
 
-from src.experiments import format_line
+from src.iot23 import format_line
 from src.helpers.file_helper import find_files_recursively, filter_out_files_larger_than, is_not_comment, get_col_value
 from src.helpers.log_helper import log_duration
 

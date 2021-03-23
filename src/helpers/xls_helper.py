@@ -2,8 +2,8 @@ import logging
 import time
 import xlsxwriter
 
-from src.experiments import get_feat_def_name, get_data_def_name, get_row_count, get_data_def_name_short
-from src.experiments import decode_label
+from src.iot23 import get_feat_selection_name, get_data_sample_name, get_sample_row_count, get_data_sample_name_short
+from src.iot23 import decode_cls_label
 
 
 def export_stats_xls(output_dir,
@@ -73,9 +73,9 @@ def __create_overall_model_scores_content(content, exp_name, exp_stats):
         if model_stats[model_name] is None:
             logging.warning("No stats json for exp=" + exp_name + " and model=" + model_name)
             continue
-        row_content = [get_feat_def_name(exp_name),
-                       get_data_def_name_short(exp_name),
-                       get_row_count(exp_name),
+        row_content = [get_feat_selection_name(exp_name),
+                       get_data_sample_name_short(exp_name),
+                       get_sample_row_count(exp_name),
                        model_name]
         row_content.extend(__gen_metric_cells(model_stats[model_name]))
         content.append(row_content)
@@ -140,10 +140,10 @@ def __create_class_model_scores_content(content, exp_name, exp_stats):
         filtered_keys = [x for x in keys if x.isnumeric()]
         for key in filtered_keys:
             key_num = int(key)
-            label = decode_label(key_num)
-            row_cells = [get_feat_def_name(exp_name),
-                         get_data_def_name_short(exp_name),
-                         get_row_count(exp_name),
+            label = decode_cls_label(key_num)
+            row_cells = [get_feat_selection_name(exp_name),
+                         get_data_sample_name_short(exp_name),
+                         get_sample_row_count(exp_name),
                          model_name,
                          label,
                          key_num,
@@ -225,8 +225,8 @@ def __aggregate_by_features(exp_stats_dict):
     exp_names = exp_stats_dict.keys()
     grouped_by_feat_data = {}
     for exp_name in exp_names:
-        feat_def = get_feat_def_name(exp_name)
-        data_def = get_data_def_name(exp_name)
+        feat_def = get_feat_selection_name(exp_name)
+        data_def = get_data_sample_name(exp_name)
         if feat_def not in grouped_by_feat_data:
             grouped_by_feat_data[feat_def] = {}
         if data_def not in grouped_by_feat_data[feat_def]:

@@ -9,7 +9,7 @@ import psutil
 
 from sklearn.metrics import classification_report
 
-from src.experiments import get_test_data_path, get_train_data_path
+from src.iot23 import get_test_data_path, get_train_data_path
 from src.helpers.dataframe_helper import df_get, load_data
 from src.helpers.file_helper import mk_dir, write_json_file
 from src.helpers.model_helper import load_model

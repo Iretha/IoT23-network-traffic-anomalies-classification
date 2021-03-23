@@ -6,7 +6,7 @@ from os import path
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from src.experiments import format_line, get_train_data_path, get_test_data_path
+from src.iot23 import format_line, get_train_data_path, get_test_data_path
 from src.helpers.dataframe_helper import df_get, df_transform_to_numeric, df_encode_objects, save_to_csv, write_to_csv
 from src.helpers.file_helper import mk_dir, combine_files, shuffle_file_content
 from src.helpers.log_helper import log_duration

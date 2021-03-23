@@ -7,7 +7,7 @@ import scikitplot as sk_plt
 from pandas.plotting import scatter_matrix
 from sklearn.utils.multiclass import unique_labels
 
-from src.experiments import iot23_data_config, experiment_definitions, get_exp_def_name_by_experiment, get_exp_features
+from src.iot23 import get_feature_selection, decode_labels
 
 
 def plot_correlations(output_dir,
@@ -181,7 +181,7 @@ def plot_feature_importance(results_location,
                             feat_importance,
                             title="Feature Importance",
                             file_name="feat_imp.png"):
-    feature_names = get_exp_features(experiment_name)
+    feature_names = get_feature_selection(experiment_name)
 
     values = list(feat_importance.values())
     x_pos = [x for x in range(len(values))]
@@ -208,11 +208,9 @@ def plot_permutation_importance(results_location,
                                 permutation_importance,
                                 title="Permutation Importance",
                                 file_name="permut_imp.png"):
-
     # feature_names = get_exp_features(experiment_name)
     # values = list(permutation_importance.values())
     # x_pos = [x for x in range(len(values))]
-
 
     # labels=X_train.columns[sorted_idx]
 
@@ -224,7 +222,6 @@ def plot_permutation_importance(results_location,
     ax.set_title("Permutation Importances")
     fig.tight_layout()
     export_plt(results_location + file_name)
-
 
     # feature_names = get_exp_features(experiment_name)
     #
@@ -263,20 +260,3 @@ def export_sns(fig, file_path, export=True):
         plt.cla()
     else:
         plt.show()
-
-
-def decode_labels(keys):
-    class_labels = iot23_data_config['class_labels']
-    labels = [class_labels[key] for key in keys]
-    return labels
-
-
-def decode_label(key):
-    return iot23_data_config['class_labels'][key]
-
-
-def get_all_labels():
-    class_labels = iot23_data_config['class_labels']
-    keys = class_labels.keys()
-    labels = [class_labels[key] for key in keys]
-    return labels

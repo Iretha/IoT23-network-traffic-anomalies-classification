@@ -4,7 +4,7 @@ from os import path
 import sys
 import time
 
-from sklearn.preprocessing import OrdinalEncoder, StandardScaler, MinMaxScaler
+from sklearn.preprocessing import OrdinalEncoder
 
 
 def df_get(file_path, delimiter='\t', header=0):

@@ -1,6 +1,6 @@
 import logging
 from config import iot23_data_dir
-from src.experiments import data_combinations, feature_combinations
+from src.iot23 import data_samples, feature_selections
 from src.helpers.data_stats_helper import explore_data_combinations
 from src.helpers.log_helper import add_logger
 
@@ -14,12 +14,12 @@ data_combinations = [
     # data_combinations['S13_R_100_000'],  # 10 sec
     # data_combinations['S13_R_5_000_000'],  # 30 sec
     # data_combinations['S04_R_5_000_000'],  # 30 sec
-    data_combinations['S16_R_5_000_000'],  # 30 sec
+    data_samples['S16_R_5_000_000'],  # 30 sec
 ]
 
 # Selected Features
 features = [
-    feature_combinations['F14'],
+    feature_selections['F14'],
 ]
 explore_data_combinations(data_file_dir,
                           combinations=data_combinations,
