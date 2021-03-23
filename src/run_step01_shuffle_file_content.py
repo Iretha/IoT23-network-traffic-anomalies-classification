@@ -4,7 +4,7 @@ from src.helpers.log_helper import add_logger
 from src.helpers.shuffle_content_helper import shuffle_files_content
 
 # Add Logger
-add_logger(file_name='01_extract_data.log')
+add_logger(file_name='01_shuffle_data.log')
 logging.warning("!!! This step takes about 120 min to complete !!!")
 
 source_files_dir = 'E:\\machine-learning\\datasets\\iot23\\2_attacks\\'
