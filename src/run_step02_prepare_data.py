@@ -13,11 +13,10 @@ logging.warning("!!! This step takes about 20 min to complete !!!")
 source_files_dir = iot23_attacks_dir
 output_files_dir = iot23_data_dir
 combinations = [
-    # data_combinations['S13_R_100_000'],  # 10 sec
-    # data_combinations['S13_R_5_000_000'],  # 30 sec
-    # data_combinations['S04_R_5_000_000'],  # 30 sec
-    data_samples['S16_R_5_000_000'],  # 30 sec
+    data_samples['S16-DEMO_R_100_000'],  # 10 sec
 
+    # data_samples['S04_R_5_000_000'],  # 30 sec
+    # data_samples['S16_R_5_000_000'],  # 30 sec
 ]
 prepare_data(source_files_dir,
              output_files_dir,

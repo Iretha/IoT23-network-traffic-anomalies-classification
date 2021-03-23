@@ -11,15 +11,10 @@ logging.warning("!!! This step takes about 3 min to complete !!!")
 # Selected Data Files
 data_file_dir = iot23_data_dir
 data_combinations = [
-    # data_combinations['S13_R_100_000'],  # 10 sec
-    # data_combinations['S13_R_5_000_000'],  # 30 sec
-    # data_combinations['S04_R_5_000_000'],  # 30 sec
-    data_samples['S16_R_5_000_000'],  # 30 sec
-]
+    data_samples['S16-DEMO_R_100_000'],  # 10 sec
 
-# Selected Features
-features = [
-    feature_selections['F14'],
+    # data_samples['S04_R_5_000_000'],  # 30 sec
+    # data_samples['S16_R_5_000_000'],  # 30 sec
 ]
 explore_data_combinations(data_file_dir,
                           combinations=data_combinations,

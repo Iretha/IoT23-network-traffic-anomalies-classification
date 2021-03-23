@@ -148,6 +148,13 @@ data_cleanup = {
 }
 
 data_samples = {
+    'S16-DEMO_R_100_000': {
+        "description": 'S16-DEMO_R_100_000',
+        "files": [],  # empty => combine all source files
+        "max_rows_per_file": 100_000,
+        "combined_data_file_name": 'S16-DEMO_R_100_000.scv',
+        "clean_data_file_name": 'S16-DEMO_R_100_000_clean.csv'},
+
     'S04_R_5_000_000': {
         "description": 'S04_R_5_000_000',
         "files": ["Benign.csv",
@@ -157,42 +164,6 @@ data_samples = {
         "max_rows_per_file": 5_000_000,
         "combined_data_file_name": 'S04_R_5_000_000.csv',
         "clean_data_file_name": 'S04_R_5_000_000_clean.csv'},
-    'S13_R_100_000': {
-        "description": 'S13_R_100_000',
-        "files": ['Attack.csv',
-                  'Benign.csv',
-                  'C&C.csv',
-                  'C&C-FileDownload.csv',
-                  'C&C-HeartBeat.csv',
-                  'C&C-HeartBeat-Attack.csv',
-                  'C&C-HeartBeat-FileDownload.csv',
-                  'C&C-PartOfAHorizontalPortScan.csv',
-                  'C&C-Torii.csv',
-                  'DDoS.csv',
-                  'FileDownload.csv',
-                  'Okiru.csv',
-                  'PartOfAHorizontalPortScan.csv'],
-        "max_rows_per_file": 100_000,
-        "combined_data_file_name": 'S13_R_100_000.scv',
-        "clean_data_file_name": 'S13_R_100_000_clean.csv'},
-    'S13_R_5_000_000': {
-        "description": 'S13_R_5_000_000',
-        "files": ['Attack.csv',
-                  'Benign.csv',
-                  'C&C.csv',
-                  'C&C-FileDownload.csv',
-                  'C&C-HeartBeat.csv',
-                  'C&C-HeartBeat-Attack.csv',
-                  'C&C-HeartBeat-FileDownload.csv',
-                  'C&C-PartOfAHorizontalPortScan.csv',
-                  'C&C-Torii.csv',
-                  'DDoS.csv',
-                  'FileDownload.csv',
-                  'Okiru.csv',
-                  'PartOfAHorizontalPortScan.csv'],
-        "max_rows_per_file": 5_000_000,
-        "combined_data_file_name": 'S13_R_5_000_000.scv',
-        "clean_data_file_name": 'S13_R_5_000_000_clean.csv'},
     'S16_R_5_000_000': {
         "description": 'S16_R_5_000_000',
         "files": [],  # empty => combine all source files
@@ -216,12 +187,13 @@ feature_selections = {
             'detailed-label'
         ]},
 
+    # EXP_FL16_FT17_R_ / EXP_FL4_FT17_R_
     # All without:
-    # 'ts', 'uid', 'label'
-    "F19": {
-        "description": 'F19',
+    # 'ts', 'uid', 'label', 'id.orig_h', 'id.resp_h'
+    "F17": {
+        "description": 'F17',
         "features": [
-            'id.orig_h', 'id.orig_p', 'id.resp_h', 'id.resp_p', 'proto',
+            'id.orig_p', 'id.resp_p', 'proto',
             'service', 'duration', 'orig_bytes', 'resp_bytes', 'conn_state',
             'local_orig', 'local_resp', 'missed_bytes', 'history', 'orig_pkts',
             'orig_ip_bytes', 'resp_pkts', 'resp_ip_bytes', 'tunnel_parents',
@@ -241,41 +213,15 @@ feature_selections = {
             'detailed-label'
         ]},
 
-    # EXP_FL16_FT17_R_ / EXP_FL4_FT17_R_
     # All without:
-    # 'ts', 'uid', 'label', 'id.orig_h', 'id.resp_h'
-    "F17": {
-        "description": 'F17',
+    # 'ts', 'uid', 'label'
+    "F19": {
+        "description": 'F19',
         "features": [
-            'id.orig_p', 'id.resp_p', 'proto',
+            'id.orig_h', 'id.orig_p', 'id.resp_h', 'id.resp_p', 'proto',
             'service', 'duration', 'orig_bytes', 'resp_bytes', 'conn_state',
             'local_orig', 'local_resp', 'missed_bytes', 'history', 'orig_pkts',
             'orig_ip_bytes', 'resp_pkts', 'resp_ip_bytes', 'tunnel_parents',
-            'detailed-label'
-        ]},
-
-    # # EXP_FL16_FT14_R_ / EXP_FL4_FT14_R_
-    # # All without:
-    # # 'ts', 'uid', 'label', 'id.orig_h', 'local_orig',
-    # # 'local_resp', 'missed_bytes',  'tunnel_parents'
-    # "F14_": [
-    #     'id.orig_p', 'id.resp_h', 'id.resp_p', 'proto',
-    #     'service', 'duration', 'orig_bytes', 'resp_bytes', 'conn_state',
-    #     'history', 'orig_pkts',
-    #     'orig_ip_bytes', 'resp_pkts', 'resp_ip_bytes',
-    #     'detailed-label'
-    # ],
-    #
-    # # EXP_FL16_FT12_R_ / EXP_FL14_FT12_R_
-    # # All without:
-    # # 'ts', 'uid', 'label', 'id.orig_h', 'service', 'history'
-    # # 'local_orig', 'local_resp', 'missed_bytes',  'tunnel_parents'
-    "F12": {
-        "description": 'F12',
-        "features": [
-            'id.orig_p', 'id.resp_h', 'id.resp_p', 'proto',
-            'duration', 'orig_bytes', 'resp_bytes', 'conn_state',
-            'orig_pkts', 'orig_ip_bytes', 'resp_pkts', 'resp_ip_bytes',
             'detailed-label'
         ]},
 }
