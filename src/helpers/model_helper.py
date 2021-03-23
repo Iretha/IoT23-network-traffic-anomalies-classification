@@ -59,3 +59,13 @@ def save_model(model_path, model):
     # Save Model
     with open(model_path, 'wb') as file:
         pickle.dump(model, file)
+
+
+def load_model(model_path):
+    if os.path.exists(model_path):
+        with open(model_path, 'rb') as file:
+            model = pickle.load(file)
+
+        logging.info('Model loaded: ' + model_path)
+        return model
+    return None

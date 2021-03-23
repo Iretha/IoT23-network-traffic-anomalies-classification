@@ -558,3 +558,6 @@ def get_data_def_name_short(experiment_name):
 
 def get_row_count(experiment_name):
     return float(experiment_name.split("R_", 1)[1])
+
+def decode_label(key):
+    return iot23_data_config['class_labels'][key]
