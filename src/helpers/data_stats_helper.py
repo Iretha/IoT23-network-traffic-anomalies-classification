@@ -31,7 +31,7 @@ def explore_data_combinations(data_dir,
     log_duration(start_time, '-----> Exploration finished in')
 
 
-def __explore_experiments_data(exp_home_dir,
+def explore_experiments_data(exp_home_dir,
                                data_combinations,
                                feature_combinations,
                                plot_corr=False,
