@@ -25,18 +25,18 @@ logging.warning("!!! This step takes about 3 min to complete !!!")
 # Explore data
 exp_home_dir = iot23_experiments_dir
 data_combinations = [
-    # data_combinations['S13_R_100_000'],  # 10 sec
-    # data_combinations['S13_R_5_000_000'],  # 30 sec
-    # data_combinations['S04_R_5_000_000'],  # 30 sec
-    data_samples['S16_R_5_000_000'],  # 30 sec
+    data_samples['S16-DEMO_R_100_000'],  # 10 sec
+
+    # data_samples['S04_R_5_000_000'],  # 30 sec
+    # data_samples['S16_R_5_000_000'],  # 30 sec
 ]
 
 # Selected Features
 feature_combos = [
     feature_selections['F14'],
-    # feature_combinations['F17'],
-    # feature_combinations['F18'],
-    # feature_combinations['F19'],
+    # feature_selections['F17'],
+    # feature_selections['F18'],
+    # feature_selections['F19'],
 ]
 
 explore_experiments_results(exp_home_dir,

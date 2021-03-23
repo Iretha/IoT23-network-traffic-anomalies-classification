@@ -10,7 +10,7 @@ logging.warning("!!! This step takes about 3 min to complete !!!")
 # Combine reports
 exp_dir = iot23_experiments_dir
 exp_list_all = list_folder_names(exp_dir)
-combine_reports(exp_dir, exp_list_all, 'all.xlsx')
+combine_reports(exp_dir, exp_list_all, 'all_mm.xlsx')
 
 print('Step 07: The end.')
 quit()
