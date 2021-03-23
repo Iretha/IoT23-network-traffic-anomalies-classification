@@ -108,7 +108,7 @@ def __clean_data(source_dir,
     log_duration(start_time, '-----> Cleaning finished in')
 
 
-def __split_into_train_and_test(source_dir, source_data_file, dest_dir, test_size=0.2, features=None, overwrite=False):
+def split_into_train_and_test(source_dir, source_data_file, dest_dir, test_size=0.2, features=None, overwrite=False):
     file_path_train = get_train_data_path(dest_dir + source_data_file)
     file_path_test = get_test_data_path(dest_dir + source_data_file)
 
