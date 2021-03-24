@@ -61,14 +61,6 @@ def plot_class_values_distribution(output_dir, df, col_name, title="Class Freque
     export_plt(file_path)
 
 
-def display_feature_distribution(output_dir, df, file_name="feature_distribution.png", export=True):
-    file_path = output_dir + file_name
-    columns_count = len(df.columns)
-    df.boxplot()
-    plt.figure(figsize=[columns_count, columns_count])
-    export_plt(file_path)
-
-
 def plot_attr_values_distribution(output_dir,
                                   df,
                                   title='Attribute Distribution',
@@ -81,24 +73,6 @@ def plot_attr_values_distribution(output_dir,
     df.hist(alpha=0.6, figsize=(columns_count + 1, columns_count + 1), color='green')
     plt.suptitle(title, fontsize=18)
     export_plt(file_path)
-
-
-def print_scatter_matrix(output_dir,
-                         df,
-                         title='Scatter MAtrix',
-                         file_name="feature_distribution.png",
-                         export=True):
-    file_path = output_dir + file_name
-    cnt = len(df.columns)
-
-    plt.style.use('ggplot')
-
-    # fig, ax = plt.subplots()
-    # fig.subplots_adjust(bottom=0.1, left=0.1)
-    # fig.suptitle(title, fontsize=25)
-
-    pd.plotting.scatter_matrix(df, alpha=0.2, figsize=(cnt * 2, cnt * 2), color='black')
-    export_plt(file_path, export=export)
 
 
 def plot_confusion_ma3x(output_dir,
@@ -202,48 +176,6 @@ def plot_feature_importance(results_location,
     export_plt(results_location + file_name)
 
 
-def plot_permutation_importance(results_location,
-                                model_name,
-                                experiment_name,
-                                permutation_importance,
-                                title="Permutation Importance",
-                                file_name="permut_imp.png"):
-    # feature_names = get_exp_features(experiment_name)
-    # values = list(permutation_importance.values())
-    # x_pos = [x for x in range(len(values))]
-
-    # labels=X_train.columns[sorted_idx]
-
-    columns = permutation_importance['columns']
-    sorted_idx = permutation_importance.importances_mean.argsort()
-
-    fig, ax = plt.subplots()
-    ax.boxplot(permutation_importance.importances[sorted_idx].T, labels=columns[sorted_idx], vert=False)
-    ax.set_title("Permutation Importances")
-    fig.tight_layout()
-    export_plt(results_location + file_name)
-
-    # feature_names = get_exp_features(experiment_name)
-    #
-    # values = list(feat_importance.values())
-    # x_pos = [x for x in range(len(values))]
-    #
-    # plt.style.use('ggplot')
-    # fig, ax = plt.subplots()
-    # fig.subplots_adjust(bottom=0.25, top=0.75, left=0.15)
-    # ax.bar(x_pos, values, color='orange', alpha=0.6)
-    # ax.set_title(title)
-    # ax.set_ylabel('Importance')
-    # ax.set_xlabel('Features')
-    # ax.set_xticks(x_pos)
-    # ax.set_xticklabels(
-    #     feature_names[0:len(values)],
-    #     rotation=35,
-    #     ha="right",
-    #     rotation_mode="anchor")
-    export_plt(results_location + file_name)
-
-
 def export_plt(file_path, export=True):
     if export:
         plt.savefig(file_path)
@@ -260,3 +192,33 @@ def export_sns(fig, file_path, export=True):
         plt.cla()
     else:
         plt.show()
+
+
+def plot_permutation_importance(results_location,
+                                model_name,
+                                experiment_name,
+                                permutation_importance,
+                                title="Permutation Importance",
+                                file_name="permut_imp.png"):
+    columns = permutation_importance['columns']
+    sorted_idx = permutation_importance.importances_mean.argsort()
+
+    fig, ax = plt.subplots()
+    ax.boxplot(permutation_importance.importances[sorted_idx].T, labels=columns[sorted_idx], vert=False)
+    ax.set_title("Permutation Importances")
+    fig.tight_layout()
+    export_plt(results_location + file_name)
+    export_plt(results_location + file_name)
+
+
+def print_scatter_matrix(output_dir,
+                         df,
+                         title='Scatter MAtrix',
+                         file_name="feature_distribution.png",
+                         export=True):
+    file_path = output_dir + file_name
+    cnt = len(df.columns)
+
+    plt.style.use('ggplot')
+    pd.plotting.scatter_matrix(df, alpha=0.2, figsize=(cnt * 2, cnt * 2), color='black')
+    export_plt(file_path, export=export)
