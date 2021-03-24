@@ -16,18 +16,18 @@ def prepare_data(sources_dir,
                  output_dir,
                  header_line,
                  cleanup_conf,
-                 data_combinations=[],
+                 data_samples=[],
                  overwrite=False):
-    logging.info("-----> Start data extraction for  . . . " + str(data_combinations))
+    logging.info("-----> Start data extraction for  . . . " + str(data_samples))
     start_time = time.time()
 
     mk_dir(output_dir)
 
-    for data_combination in data_combinations:
-        source_files = data_combination["files"]
-        combined_data_file_name = data_combination["combined_data_file_name"]
-        clean_data_file_name = data_combination["clean_data_file_name"]
-        max_rows = data_combination["max_rows_per_file"]
+    for sata_sample in data_samples:
+        source_files = sata_sample["files"]
+        combined_data_file_name = sata_sample["combined_data_file_name"]
+        clean_data_file_name = sata_sample["clean_data_file_name"]
+        max_rows = sata_sample["max_rows_per_file"]
 
         exists = path.exists(output_dir + clean_data_file_name)
         if overwrite is True or not exists:

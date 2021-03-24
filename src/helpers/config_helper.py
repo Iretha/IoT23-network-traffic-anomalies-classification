@@ -11,6 +11,7 @@ def check_config(scenarios_dir,
                  experiments_dir):
     # Validate scenarios home_dir
     valid_scenarios_dir = os.path.exists(scenarios_dir)
+    valid_scenarios_content = False
     if not valid_scenarios_dir:
         logging.error("Please, go to config.py and make sure that path to scenarios exists.")
     else:

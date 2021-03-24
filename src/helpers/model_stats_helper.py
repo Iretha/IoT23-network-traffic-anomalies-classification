@@ -10,6 +10,7 @@ import re
 from sklearn.inspection import permutation_importance
 from sklearn.metrics import accuracy_score, classification_report, f1_score, recall_score, precision_score, balanced_accuracy_score
 
+from src.helpers.model_helper import load_model
 from src.iot23 import get_exp_name, get_exp_models_dir, get_exp_results_dir, get_exp_data_dir, data_cleanup, get_test_data_path
 from src.helpers.dataframe_helper import load_data
 from src.helpers.file_helper import mk_dir, write_json_file
@@ -19,17 +20,17 @@ from src.helpers.xls_helper import export_stats_xls
 
 
 def explore_experiments_results(exp_home_dir,
-                                data_combinations,
-                                feature_combinations,
+                                data_samples,
+                                feature_selections,
                                 enable_score_tables=True,
                                 enable_score_charts=False,
                                 enable_model_insights=False):
-    for data_combination in data_combinations:
-        for feature_combination in feature_combinations:
-            exp_name = get_exp_name(data_combination, feature_combination)
+    for data_sample in data_samples:
+        for feature_selection in feature_selections:
+            exp_name = get_exp_name(data_sample, feature_selection)
             explore_experiment_results(exp_home_dir,
                                        exp_name,
-                                       data_combination['clean_data_file_name'],
+                                       data_sample['clean_data_file_name'],
                                        enable_score_tables=enable_score_tables,
                                        enable_score_charts=enable_score_charts,
                                        enable_model_insights=enable_model_insights)
@@ -76,19 +77,14 @@ def export_model_stats(experiment_name,
 
     stats = {}
     model_stats = {}
-    pid = os.getpid()
-    p = psutil.Process(pid)
+
     # Score
     model_paths = glob.glob(models_location + "/*.pkl")
     for model_path in model_paths:
         model_name = ntpath.basename(model_path)
-        model_name = re.findall(r'[^\/]+(?=\.)', model_name)[0]
-        # print(p.memory_info())
-        # print(p.cpu_percent(interval=1.0))
+        model_name = re.findall(r'[^/]+(?=\.)', model_name)[0]
         model = load_model(model_path)
         if model is not None:
-            # print(p.memory_info())
-            # print(p.cpu_percent(interval=1.0))
             y_test, predictions, adv_stats, adv_insights = score_model(model_name,
                                                                        model,
                                                                        x_test,
@@ -106,14 +102,10 @@ def export_model_stats(experiment_name,
                                        y_test,
                                        predictions,
                                        experiment_name,
-                                       adv_stats,
                                        enable_score_charts=enable_score_charts)
 
             export_model_insights(results_location,
-                                  model_name, model,
-                                  x_test,
-                                  y_test,
-                                  predictions,
+                                  model_name,
                                   experiment_name,
                                   adv_insights,
                                   enable_model_insights=enable_model_insights)
@@ -133,7 +125,6 @@ def export_model_result_charts(results_location,
                                y_test,
                                y_pred,
                                experiment_name,
-                               adv_stats,
                                enable_score_charts=False):
     if not enable_score_charts:
         return
@@ -166,10 +157,6 @@ def export_model_result_charts(results_location,
 
 def export_model_insights(results_location,
                           model_name,
-                          model,
-                          x_test,
-                          y_test,
-                          y_pred,
                           experiment_name,
                           adv_insights,
                           enable_model_insights=False):
@@ -195,17 +182,6 @@ def export_model_insights(results_location,
                                         imp,
                                         title=experiment_name + "\n\n" + model_name + "\nPermutation Importance",
                                         file_name=experiment_name + '_' + model_name + "_permutation_imp.png")
-
-
-def load_model(model_path):
-    if not os.path.exists(model_path):
-        return None
-
-    with open(model_path, 'rb') as file:
-        model = pickle.load(file)
-
-    logging.info('Model loaded: ' + model_path)
-    return model
 
 
 def score_model(model_name, model, x_test, y_test, enable_model_insights=False):

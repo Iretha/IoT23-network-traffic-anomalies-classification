@@ -8,17 +8,20 @@ from src.helpers.plt_helper import plot_correlations, plot_class_values_distribu
 
 
 def explore_data_combinations(data_dir,
-                              combinations=[],
+                              data_samples=None,
                               plot_corr=False,
                               plot_cls_dist=False,
                               plot_attr_dist=False):
-    logging.info("-----> Explore data for  . . . " + str(combinations))
+    if data_samples is None:
+        return
+
+    logging.info("-----> Explore data for  . . . " + str(data_samples))
     start_time = time.time()
 
-    for combination in combinations:
-        data_file_name = combination['clean_data_file_name']
+    for data_sample in data_samples:
+        data_file_name = data_sample['clean_data_file_name']
         data_file_path = data_dir + data_file_name
-        data_combination_info = combination['description']
+        data_combination_info = data_sample['description']
 
         __explore_data(data_file_path,
                        data_dir,
@@ -32,18 +35,18 @@ def explore_data_combinations(data_dir,
 
 
 def explore_experiments_data(exp_home_dir,
-                             data_combinations,
-                             feature_combinations,
+                             data_samples,
+                             feature_selections,
                              plot_corr=False,
                              plot_cls_dist=False,
                              plot_attr_dist=False):
-    for data_combination in data_combinations:
-        for feature_combination in feature_combinations:
-            exp_name = get_exp_name(data_combination, feature_combination)
+    for data_sample in data_samples:
+        for feature_selection in feature_selections:
+            exp_name = get_exp_name(data_sample, feature_selection)
             exp_data_dir = get_exp_data_dir(exp_home_dir + exp_name)
 
             # Explore Train Data
-            train_data_file_name = get_train_data_path(data_combination['clean_data_file_name'])
+            train_data_file_name = get_train_data_path(data_sample['clean_data_file_name'])
             __explore_data(exp_data_dir + train_data_file_name,
                            exp_data_dir,
                            exp_name + ' Train',
@@ -53,7 +56,7 @@ def explore_experiments_data(exp_home_dir,
                            plot_attr_dist=plot_attr_dist)
 
             # Explore Test Data
-            test_data_file_name = get_test_data_path(data_combination['clean_data_file_name'])
+            test_data_file_name = get_test_data_path(data_sample['clean_data_file_name'])
             __explore_data(exp_data_dir + test_data_file_name,
                            exp_data_dir,
                            exp_name + ' Test',

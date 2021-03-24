@@ -2,7 +2,11 @@ import re
 
 iot23_metadata = {
     "file_name_pattern": "/**/conn.log.labeled",
-    "file_header": "ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	proto	service	duration	orig_bytes	resp_bytes	conn_state	local_orig	local_resp	missed_bytes	history	orig_pkts	orig_ip_bytes	resp_pkts	resp_ip_bytes	tunnel_parents	label	detailed-label\n",
+    "file_header": "ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	"
+                   "proto	service	duration	orig_bytes	resp_bytes	conn_state	"
+                   "local_orig	local_resp	missed_bytes	history	orig_pkts	"
+                   "orig_ip_bytes	resp_pkts	resp_ip_bytes	tunnel_parents	"
+                   "label	detailed-label\n",
     "all_columns": [
         'ts', 'uid',
         'id.orig_h', 'id.orig_p', 'id.resp_h', 'id.resp_p', 'proto',
@@ -90,7 +94,7 @@ data_cleanup = {
         12: "Okiru",
         13: "Okiru-Att",
         14: "HorizPortSc",
-        15: "HPS-Att",
+        15: "HorizPortSc-Att",
     },
     "category_encodings": {
         "conn_state": {
@@ -116,15 +120,15 @@ data_cleanup = {
             "C&C-HeartBeat": 4,
             "C&C-HeartBeat-Attack": 5,
             "C&C-HeartBeat-FileDownload": 6,
-            "C&C-PartOfAHorizontalPortScan": 7,
-            "C&C-Torii": 8,
-            "DDoS": 9,
-            "FileDownload": 10,
-            "Okiru": 11,
-            "PartOfAHorizontalPortScan": 12,
-            "PartOfAHorizontalPortScan-Attack": 13,
-            "C&C-Mirai": 14,
-            "Okiru-Attack": 15,
+            "C&C-Mirai": 7,
+            "C&C-PartOfAHorizontalPortScan": 8,
+            "C&C-Torii": 9,
+            "DDoS": 10,
+            "FileDownload": 11,
+            "Okiru": 12,
+            "Okiru-Attack": 13,
+            "PartOfAHorizontalPortScan": 14,
+            "PartOfAHorizontalPortScan-Attack": 15,
         },
         "label": {
             "benign": 0,
@@ -225,6 +229,26 @@ feature_selections = {
             'detailed-label'
         ]},
 }
+
+datasets = {
+    'S16': [],
+    'S04': [
+        "Benign.csv",
+        "DDoS.csv",
+        "Okiru.csv",
+        "PartOfAHorizontalPortScan.csv"
+    ]
+}
+
+
+def get_data_sample(dataset_name='S04', rows_per_dataset_file=100_000):
+    sample_name = dataset_name + ('_R_' + str(format(rows_per_dataset_file, '_d')))
+    return {
+        "description": sample_name,
+        "files": datasets[dataset_name],  # empty => combine all source files
+        "max_rows_per_file": rows_per_dataset_file,
+        "combined_data_file_name": sample_name + '.scv',
+        "clean_data_file_name": sample_name + '_clean.csv'}
 
 
 def get_feature_selection(experiment_name):
