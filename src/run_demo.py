@@ -61,4 +61,4 @@ run_end_to_end_process(source_files_dir,
                        data_samples,
                        features,
                        training_algorithms,
-                       'all_stats.xlsx')
+                       'all_demo_stats.xlsx')
