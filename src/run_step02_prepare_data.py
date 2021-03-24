@@ -14,11 +14,8 @@ source_files_dir = iot23_attacks_dir
 output_files_dir = iot23_data_dir
 
 data_samples = [
-    get_data_sample(dataset_name='S04', rows_per_dataset_file=100_000),
-    get_data_sample(dataset_name='S16', rows_per_dataset_file=100_000),
-    #
-    # get_data_sample(dataset_name='S04', rows_per_dataset_file=5_000_000),
-    # get_data_sample(dataset_name='S16', rows_per_dataset_file=5_000_000),
+    get_data_sample(dataset_name='S04', rows_per_dataset_file=5_000_000),  # ~ 10 min
+    get_data_sample(dataset_name='S16', rows_per_dataset_file=5_000_000),  # ~ 10 min
 ]
 run_data_preprocessing(source_files_dir,
                        output_files_dir,
