@@ -172,15 +172,15 @@ def export_model_insights(results_location,
                                     title=experiment_name + "\n\n" + model_name + "\nFeature Importance",
                                     file_name=experiment_name + '_' + model_name + "_feature_imp.png")
 
-    if 'Permutation Importance' in adv_insights:
-        imp = adv_insights['Permutation Importance']
-        if imp is not None:
-            plot_permutation_importance(results_location,
-                                        model_name,
-                                        experiment_name,
-                                        imp,
-                                        title=experiment_name + "\n\n" + model_name + "\nPermutation Importance",
-                                        file_name=experiment_name + '_' + model_name + "_permutation_imp.png")
+    # if 'Permutation Importance' in adv_insights:
+    #     imp = adv_insights['Permutation Importance']
+    #     if imp is not None:
+    #         plot_permutation_importance(results_location,
+    #                                     model_name,
+    #                                     experiment_name,
+    #                                     imp,
+    #                                     title=experiment_name + "\n\n" + model_name + "\nPermutation Importance",
+    #                                     file_name=experiment_name + '_' + model_name + "_permutation_imp.png")
 
 
 def score_model(model_name, model, x_test, y_test, enable_model_insights=False):
