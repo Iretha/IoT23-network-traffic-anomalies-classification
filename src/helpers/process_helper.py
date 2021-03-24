@@ -53,7 +53,7 @@ def run_end_to_end_process(source_files_dir,
                             features,
                             enable_score_tables=True,
                             enable_score_charts=True,
-                            enable_model_insights=False)
+                            enable_model_insights=True)
 
     # Combine all stats into single XLS
     experiments_folder_list = list_folder_names(experiments_dir)
