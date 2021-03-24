@@ -1,7 +1,6 @@
 import os
 import glob
 import ntpath
-import pickle
 import logging
 import time
 import psutil
@@ -19,12 +18,12 @@ from src.helpers.plt_helper import plot_feature_importance, plot_confusion_ma3x,
 from src.helpers.xls_helper import export_stats_xls
 
 
-def explore_experiments_results(exp_home_dir,
-                                data_samples,
-                                feature_selections,
-                                enable_score_tables=True,
-                                enable_score_charts=False,
-                                enable_model_insights=False):
+def run_experiments_reports(exp_home_dir,
+                            data_samples,
+                            feature_selections,
+                            enable_score_tables=True,
+                            enable_score_charts=False,
+                            enable_model_insights=False):
     for data_sample in data_samples:
         for feature_selection in feature_selections:
             exp_name = get_exp_name(data_sample, feature_selection)

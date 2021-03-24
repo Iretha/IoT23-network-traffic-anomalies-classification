@@ -6,31 +6,31 @@ from src.helpers.data_helper import split_into_train_and_test
 from src.helpers.model_helper import create_models
 
 
-def run_model_training_for_samples(data_dir,
-                                   experiments_dir,
-                                   data_samples,
-                                   features_selections,
-                                   training_algorithms,
-                                   test_size=0.2,
-                                   overwrite=False):
+def run_experiments(data_dir,
+                    experiments_dir,
+                    data_samples,
+                    features_selections,
+                    training_algorithms,
+                    test_size=0.2,
+                    overwrite=False):
     for data_sample in data_samples:
         for feature_selection in features_selections:
-            run_model_training_for_sample(data_dir,
-                                          experiments_dir,
-                                          data_sample,
-                                          feature_selection,
-                                          training_algorithms,
-                                          test_size=test_size,
-                                          overwrite=overwrite)
+            __run_experiment(data_dir,
+                             experiments_dir,
+                             data_sample,
+                             feature_selection,
+                             training_algorithms,
+                             test_size=test_size,
+                             overwrite=overwrite)
 
 
-def run_model_training_for_sample(data_dir,
-                                  experiments_dir,
-                                  data_sample,
-                                  feature_combination,
-                                  training_algorithms,
-                                  test_size=0.2,
-                                  overwrite=False):
+def __run_experiment(data_dir,
+                     experiments_dir,
+                     data_sample,
+                     feature_combination,
+                     training_algorithms,
+                     test_size=0.2,
+                     overwrite=False):
     # Make experiment data dir
     experiment_name = get_exp_name(data_sample, feature_combination)
     experiment_data_dir = experiments_dir + get_exp_data_dir(experiment_name)

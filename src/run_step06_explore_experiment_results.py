@@ -5,7 +5,7 @@ import sklearn
 from config import iot23_experiments_dir
 from src.iot23 import feature_selections, get_data_sample
 from src.helpers.log_helper import add_logger
-from src.helpers.model_stats_helper import explore_experiments_results
+from src.helpers.model_stats_helper import run_experiments_reports
 
 # Setup warnings
 warnings.filterwarnings("ignore", category=sklearn.exceptions.UndefinedMetricWarning)
@@ -37,12 +37,12 @@ feature_selections = [
     # feature_selections['F19'],
 ]
 
-explore_experiments_results(exp_home_dir,
-                            data_samples,
-                            feature_selections,
-                            enable_score_tables=True,
-                            enable_score_charts=True,
-                            enable_model_insights=False)
+run_experiments_reports(exp_home_dir,
+                        data_samples,
+                        feature_selections,
+                        enable_score_tables=True,
+                        enable_score_charts=True,
+                        enable_model_insights=False)
 
 print('Step 06: The end.')
 quit()

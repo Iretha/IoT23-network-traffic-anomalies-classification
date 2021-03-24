@@ -12,12 +12,15 @@ from src.helpers.file_helper import mk_dir, combine_files, shuffle_file_content
 from src.helpers.log_helper import log_duration
 
 
-def prepare_data(sources_dir,
-                 output_dir,
-                 header_line,
-                 cleanup_conf,
-                 data_samples=[],
-                 overwrite=False):
+def run_data_preprocessing(sources_dir,
+                           output_dir,
+                           header_line,
+                           cleanup_conf,
+                           data_samples=None,
+                           overwrite=False):
+    if data_samples is None:
+        return
+
     logging.info("-----> Start data extraction for  . . . " + str(data_samples))
     start_time = time.time()
 
@@ -96,7 +99,7 @@ def __clean_data(source_dir,
     # Convert to numeric (if possible)
     transform_to_numeric = selected_columns
     if len(transform_to_numeric) > 0:
-        df = df_transform_to_numeric(dataframe, transform_to_numeric)
+        df_transform_to_numeric(dataframe, transform_to_numeric)
 
     # Encode what is left
     df_encode_objects(dataframe)

@@ -140,7 +140,10 @@ def find_files_recursively(location_dir, file_name_pattern):
     return files
 
 
-def filter_out_files_larger_than(file_paths=[], max_size_in_mb=None):
+def filter_out_files_larger_than(file_paths=None, max_size_in_mb=None):
+    if file_paths is None:
+        return
+
     if max_size_in_mb is None:
         return file_paths
 
@@ -169,7 +172,10 @@ def get_file_size_in_gb(file_path):
     return size_in_mb / 1000
 
 
-def get_col_value(line, sep, idx, map_key_values={}):
+def get_col_value(line, sep, idx, map_key_values=None):
+    if map_key_values is None:
+        map_key_values = {}
+
     cols = re.split(sep, line)
     val = (cols[idx]).strip()
     return map_key_values.get(val, val)

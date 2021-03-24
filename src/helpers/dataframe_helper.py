@@ -12,8 +12,8 @@ def df_get(file_path, delimiter='\t', header=0):
     return pd.read_csv(file_path, delimiter=delimiter, header=header)
 
 
-def df_transform_to_numeric(df, columns=[]):
-    if len(columns) == 0:
+def df_transform_to_numeric(df, columns=None):
+    if columns is None or len(columns) == 0:
         columns = list(df.select_dtypes(include=['object']).columns)
 
     logging.info('Transform columns to numeric: ' + ', '.join(columns))
@@ -62,12 +62,12 @@ def scale_data(x_data, scaler):
     return x_data
 
 
-def load_data_into_frame(data_file_path, classification_col_name, columns=[], scaler=None):
+def load_data_into_frame(data_file_path, classification_col_name, columns=None, scaler=None):
     # Load data in df
     df = df_get(data_file_path, delimiter=',')
 
     # Select columns
-    if len(columns) == 0:
+    if columns is None or len(columns) == 0:
         columns = list(df.columns)
 
     # Select features
@@ -82,7 +82,9 @@ def load_data_into_frame(data_file_path, classification_col_name, columns=[], sc
     return x, y
 
 
-def load_data(file_path, classification_col_name, features=[], scaler=None):
+def load_data(file_path, classification_col_name, features=None, scaler=None):
+    if features is None:
+        features = []
     logging.info("-----> Load data ")
     start_time = time.time()
 

@@ -9,7 +9,7 @@ from sklearn.tree import DecisionTreeClassifier
 from config import iot23_data_dir, iot23_experiments_dir
 from src.iot23 import feature_selections, get_data_sample
 from src.helpers.log_helper import add_logger
-from src.helpers.experiments_helper import run_model_training_for_samples
+from src.helpers.experiments_helper import run_experiments
 
 add_logger(file_name='04_train_models.log')
 
@@ -45,12 +45,12 @@ training_algorithms = dict([
 ])
 
 experiments_dir = iot23_experiments_dir
-run_model_training_for_samples(data_file_dir,
-                               experiments_dir,
-                               data_samples,
-                               features,
-                               training_algorithms,
-                               overwrite=False)
+run_experiments(data_file_dir,
+                experiments_dir,
+                data_samples,
+                features,
+                training_algorithms,
+                overwrite=False)
 
 print('Step 04: The end.')
 quit()

@@ -7,11 +7,11 @@ from src.helpers.log_helper import log_duration
 from src.helpers.plt_helper import plot_correlations, plot_class_values_distribution, plot_attr_values_distribution
 
 
-def explore_data_combinations(data_dir,
-                              data_samples=None,
-                              plot_corr=False,
-                              plot_cls_dist=False,
-                              plot_attr_dist=False):
+def explore_clean_data(data_dir,
+                       data_samples=None,
+                       plot_corr=False,
+                       plot_cls_dist=False,
+                       plot_attr_dist=False):
     if data_samples is None:
         return
 
@@ -34,12 +34,12 @@ def explore_data_combinations(data_dir,
     log_duration(start_time, '-----> Exploration finished in')
 
 
-def explore_experiments_data(exp_home_dir,
-                             data_samples,
-                             feature_selections,
-                             plot_corr=False,
-                             plot_cls_dist=False,
-                             plot_attr_dist=False):
+def explore_experiments_train_test_data(exp_home_dir,
+                                        data_samples,
+                                        feature_selections,
+                                        plot_corr=False,
+                                        plot_cls_dist=False,
+                                        plot_attr_dist=False):
     for data_sample in data_samples:
         for feature_selection in feature_selections:
             exp_name = get_exp_name(data_sample, feature_selection)
