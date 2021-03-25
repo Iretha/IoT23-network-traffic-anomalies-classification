@@ -151,31 +151,6 @@ data_cleanup = {
     },
 }
 
-data_samples = {
-    'S16-DEMO_R_100_000': {
-        "description": 'S16-DEMO_R_100_000',
-        "files": [],  # empty => combine all source files
-        "max_rows_per_file": 100_000,
-        "combined_data_file_name": 'S16-DEMO_R_100_000.scv',
-        "clean_data_file_name": 'S16-DEMO_R_100_000_clean.csv'},
-
-    'S04_R_5_000_000': {
-        "description": 'S04_R_5_000_000',
-        "files": ["Benign.csv",
-                  "DDoS.csv",
-                  "Okiru.csv",
-                  "PartOfAHorizontalPortScan.csv"],
-        "max_rows_per_file": 5_000_000,
-        "combined_data_file_name": 'S04_R_5_000_000.csv',
-        "clean_data_file_name": 'S04_R_5_000_000_clean.csv'},
-    'S16_R_5_000_000': {
-        "description": 'S16_R_5_000_000',
-        "files": [],  # empty => combine all source files
-        "max_rows_per_file": 5_000_000,
-        "combined_data_file_name": 'S16_R_5_000_000.scv',
-        "clean_data_file_name": 'S16_R_5_000_000_clean.csv'},
-}
-
 feature_selections = {
     # EXP_FL16_FT14_R_ / EXP_FL4_FT14_R_
     # All without:
@@ -286,8 +261,8 @@ def get_exp_results_dir(exp_name):
     return exp_name + "//results//"
 
 
-def get_exp_name(data_combination, feature_combination):
-    return feature_combination + '_' + data_combination['description']
+def get_exp_name(data_combination, feature_selection_name):
+    return feature_selection_name + '_' + data_combination['description']
 
 
 def get_feat_selection_name(experiment_name):
