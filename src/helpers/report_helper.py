@@ -26,7 +26,7 @@ def __find_json_stats(exp_dir, experiment_names):
 
     json_stats = {}
     for experiment_name in experiment_names:
-        experiment_result_json = exp_dir + experiment_name + '\\results\\stats.json'
+        experiment_result_json = exp_dir + experiment_name + '\\results\\*_scores.json'
         if os.path.exists(experiment_result_json):
             with open(experiment_result_json) as json_file:
                 json_stats[experiment_name] = json.load(json_file)
