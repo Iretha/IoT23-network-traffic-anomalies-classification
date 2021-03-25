@@ -19,14 +19,14 @@ No  | <div style="width:100px">Name</div>| Version          | Description
 8   | [scikit-plot](https://github.com/reiinakano/scikit-plot)|0.3.7|Library for visualizations
 9   | [pickle](https://docs.python.org/3/library/pickle.html)|-|Python object serialization for model serialization
 
-### 1.2. Download & Extract Dataset [IoT-23](https://www.stratosphereips.org/datasets-iot23) (Lighter Version){#prerequisites-1}
+### 1.2. Download & Extract Dataset
 
 1. Download the lighter version of [IoT-23](https://www.stratosphereips.org/datasets-iot23) (archive size - 8.8 GB)
 > ℹ️ The lighter version contains only labeled flows without the pcaps files 
 2. Extract Archive (size - 8.8 GB)
 > 
 
-## 2. Setup Project{#prerequisites-2}
+## 2. Setup Project
 1. Clone this repo
 2. Install missing libraries
 3. Open **config.py** and configure required directories
@@ -38,7 +38,7 @@ No  | <div style="width:100px">Name</div>| Version          | Description
 > Make sure the output message says that you may continue to the next step. If not, then check
 > your configuration and fix the errors.
 
-## 3. Prepare Data for ML{#prerequisites-3}
+## 3. Prepare Data for ML
 ### 3.1. Extract Data From Scenarios
 Run data extraction by running **run_step01_extract_data_from_scenarios.py**
 > Even though, there are multiple scenarios, files still contain mixed attack and benign traffic.
@@ -59,11 +59,11 @@ Run content shuffling by running **run_step01_shuffle_file_content.py**
 
 > **Prerequisites**:
 >
-> ✔️ 1. [Download & Extract Dataset](#prerequisites-1)
+> ✔️ 1. [Download & Extract Dataset](#1-2-download-extract-dataset)
 > 
-> ✔️ 2. [Setup Project](#prerequisites-2)
+> ✔️ 2. [Setup Project](#2-setup-project)
 > 
-> ✔️ 3. [Prepare Data for ML](#prerequisites-3)
+> ✔️ 3. [Prepare Data for ML](#3-prepare-data-for-ml)
 
 Run demo by running **run_demo.py**
 > TODO
