@@ -42,7 +42,7 @@ def explore_experiments_train_test_data(exp_home_dir,
                                         plot_attr_dist=False):
     for data_sample in data_samples:
         for feature_selection in feature_selections:
-            exp_name = get_exp_name(data_sample, feature_selection)
+            exp_name = get_exp_name(data_sample, feature_selection['description'])
             exp_data_dir = get_exp_data_dir(exp_home_dir + exp_name)
 
             # Explore Train Data
