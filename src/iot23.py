@@ -287,7 +287,7 @@ def get_exp_results_dir(exp_name):
 
 
 def get_exp_name(data_combination, feature_combination):
-    return feature_combination['description'] + '_' + data_combination['description']
+    return feature_combination + '_' + data_combination['description']
 
 
 def get_feat_selection_name(experiment_name):

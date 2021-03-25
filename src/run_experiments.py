@@ -14,7 +14,7 @@ from src.helpers.process_helper import run_end_to_end_process
 from src.iot23 import get_data_sample, iot23_metadata, feature_selections
 
 # Add Logger
-add_logger(file_name='demo.log')
+add_logger(file_name='experiments.log')
 
 # Setup warnings
 warnings.filterwarnings("ignore", category=sklearn.exceptions.UndefinedMetricWarning)
@@ -25,16 +25,16 @@ source_files_dir = iot23_attacks_dir
 data_dir = iot23_data_dir
 experiments_dir = iot23_experiments_dir
 data_samples = [
-    get_data_sample(dataset_name='S04', rows_per_dataset_file=10_000),
-    get_data_sample(dataset_name='S16', rows_per_dataset_file=10_000),
+    get_data_sample(dataset_name='S04', rows_per_dataset_file=5_000_000),
+    get_data_sample(dataset_name='S16', rows_per_dataset_file=5_000_000),
 ]
 
 # Selected Features
 features = [
     feature_selections['F14'],
-    # feature_selections['F17'],
-    # feature_selections['F18'],
-    # feature_selections['F19'],
+    feature_selections['F17'],
+    feature_selections['F18'],
+    feature_selections['F19'],
 ]
 
 # Selected Algorithms
@@ -46,15 +46,10 @@ training_algorithms = dict([
     ('SVC_linear', Pipeline([('normalization', MinMaxScaler()), ('classifier', LinearSVC())])),
 ])
 
-# Prerequisites:
-# 1. Run run_step00_configuration_check.py
-# 2. Run run_step01_extract_data_from_scenarios.py
-# 3. Run run_step01_shuffle_file_content.py
-
 run_end_to_end_process(source_files_dir,
                        data_dir,
                        experiments_dir,
                        data_samples,
                        features,
                        training_algorithms,
-                       'all_demo_stats.xlsx')
+                       'all_experiments_stats.xlsx')
