@@ -26,7 +26,7 @@ def run_experiments_reports(exp_home_dir,
                             enable_model_insights=False):
     for data_sample in data_samples:
         for feature_selection in feature_selections:
-            exp_name = get_exp_name(data_sample, feature_selection)
+            exp_name = get_exp_name(data_sample, feature_selection['description'])
             explore_experiment_results(exp_home_dir,
                                        exp_name,
                                        data_sample['clean_data_file_name'],
@@ -110,10 +110,10 @@ def export_model_stats(experiment_name,
                                   enable_model_insights=enable_model_insights)
 
     stats['model_stats'] = model_stats
-    write_json_file(results_location + 'stats.json', stats)
+    write_json_file(results_location + experiment_name + '_scores.json', stats)
     export_stats_xls(results_location,
                      {experiment_name: stats},
-                     output_file_name=experiment_name + '.xlsx',
+                     output_file_name=experiment_name + '_scores.xlsx',
                      enable_score_tables=enable_score_tables)
 
 
@@ -133,7 +133,7 @@ def export_model_result_charts(results_location,
                         y_pred,
                         experiment_name,
                         title=experiment_name + "\n\n" + model_name + "\nConfusion Matrix",
-                        file_name=experiment_name + '_' + model_name + "_conf_m3x_v2.png")
+                        file_name=model_name + "_conf_m3x.png")
 
     plot_model_roc_curve(results_location,
                          model,
@@ -142,7 +142,7 @@ def export_model_result_charts(results_location,
                          y_test,
                          experiment_name,
                          title=experiment_name + "\n\n" + model_name + "\nROC Curves",
-                         file_name=experiment_name + '_' + model_name + "_roc_curve.png")
+                         file_name=model_name + "_roc_curve.png")
 
     plot_model_precision_recall_curve(results_location,
                                       model,
@@ -151,7 +151,7 @@ def export_model_result_charts(results_location,
                                       y_test,
                                       experiment_name,
                                       title=experiment_name + "\n\n" + model_name + "\nPrecision-Recall Curves",
-                                      file_name=experiment_name + '_' + model_name + "_pr_recall_curve.png")
+                                      file_name=model_name + "_pr_recall_curve.png")
 
 
 def export_model_insights(results_location,
@@ -170,7 +170,7 @@ def export_model_insights(results_location,
                                     experiment_name,
                                     imp,
                                     title=experiment_name + "\n\n" + model_name + "\nFeature Importance",
-                                    file_name=experiment_name + '_' + model_name + "_feature_imp.png")
+                                    file_name=model_name + "_feature_imp.png")
 
     # if 'Permutation Importance' in adv_insights:
     #     imp = adv_insights['Permutation Importance']
@@ -180,7 +180,7 @@ def export_model_insights(results_location,
     #                                     experiment_name,
     #                                     imp,
     #                                     title=experiment_name + "\n\n" + model_name + "\nPermutation Importance",
-    #                                     file_name=experiment_name + '_' + model_name + "_permutation_imp.png")
+    #                                     file_name=model_name + "_permutation_imp.png")
 
 
 def score_model(model_name, model, x_test, y_test, enable_model_insights=False):
@@ -208,7 +208,7 @@ def score_model(model_name, model, x_test, y_test, enable_model_insights=False):
     if enable_model_insights:
         real_model = model.named_steps["classifier"]
         load_feat_importance(model_name, real_model, adv_insights)
-        load_permutation_importance(model_name, real_model, x_test, y_test, adv_insights)
+        # load_permutation_importance(model_name, real_model, x_test, y_test, adv_insights)
 
     log_score(model_name, y_test, predictions)
     log_class_report(model_name, y_test, predictions)
