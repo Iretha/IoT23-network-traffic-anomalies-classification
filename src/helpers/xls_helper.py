@@ -51,7 +51,7 @@ def __create_overall_scores_worksheet(workbook, exp_stats_dict, title="Model Sco
         'F1-Score (Macro)',
         'F1-Score (Micro)',
         'Support (Weighted)',
-        'Support (Macro)'
+        'Support (Macro)',
         'Runtime (sec)',
         'CPU (%)',
         'Process Memory (%)',
