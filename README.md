@@ -22,7 +22,7 @@ No  | <div style="width:100px">Name</div>| Version          | Description
 ### 1.2. Download & Extract Dataset
 
 1. Download the lighter version of [IoT-23](https://www.stratosphereips.org/datasets-iot23) (archive size - 8.8 GB)
-> ℹ️ The lighter version contains only labeled flows without the pcaps files 
+> The lighter version contains only labeled flows without the pcaps files 
 2. Extract Archive (size - 8.8 GB)
 > 
 
@@ -44,37 +44,63 @@ Run data extraction by running **run_step01_extract_data_from_scenarios.py**
 > Even though, there are multiple scenarios, files still contain mixed attack and benign traffic.
 > For this reason we are going to extract the entries of a similar type into separate files.
 > The output files will be stored to **iot23_attacks_dir**.
->> This step takes about 2h
+>
+> ⚠️ This step takes about 2h to complete.
 
 ### 3.2. Shuffle File Content
 Run content shuffling by running **run_step01_shuffle_file_content.py**
 > This step will provide more reliable data samples.
 > Larger files are split into partitions of 1 GB. Then the content of all partitions (of the same file) gets shuffled. 
 > When shuffling is ready, the partitions are merged back into a single file, that replaces the original one.
->> This step takes about 2.5 - 3h
+> 
+> ⚠️ This step takes about 2.5 - 3h to complete.
 
 ----
 
 # Option 1: Run Demo
 
-> **Prerequisites**:
+#### 1.1. Prerequisites
 >
-> ✔️ 1. [Download & Extract Dataset](#1-2-download-extract-dataset)
-> 
-> ✔️ 2. [Setup Project](#2-setup-project)
-> 
-> ✔️ 3. [Prepare Data for ML](#3-prepare-data-for-ml)
+> 1. [Download & Extract Dataset](#12-download--extract-dataset)
+>
+> 2. [Setup Project](#2-setup-project)
+>
+> 3. [Prepare Data for ML](#3-prepare-data-for-ml)
 
-Run demo by running **run_demo.py**
+#### 1.2. Run demo by running **run_demo.py**
+
 > TODO
+
+
 # Option 2: Run Designed Experiments
-Run designed experiments by running **run_experiments.py** 
-> ⚠️⚠️⚠️
-> **This step may take up to 24h to finnish!**
+
+#### 2.1. Prerequisites
+>
+> 1. [Download & Extract Dataset](#12-download--extract-dataset)
+>
+> 2. [Setup Project](#2-setup-project)
+>
+> 3. [Prepare Data for ML](#3-prepare-data-for-ml)
+
+#### 2.2. Run designed experiments by running **run_experiments.py**
+> ⚠️⚠️⚠️ **This step takes about 24h to complete!**
 >  
-> Data samples used for the experiments consist of more than 20 mil records.
+> Data samples for training and testing consist of more than **20M** records.
+
+>TODO
+
 # Option 3: Run Custom Experiments
-> TODO
+#### 3.1. Prerequisites
+>
+> 1. [Download & Extract Dataset](#12-download--extract-dataset)
+>
+> 2. [Setup Project](#2-setup-project)
+>
+> 3. [Prepare Data for ML](#3-prepare-data-for-ml)
+
+#### 3.2. Run designed experiments by running **run_experiments.py**
+
+>TODO
 
 
 ---
