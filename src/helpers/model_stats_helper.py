@@ -14,7 +14,7 @@ from src.iot23 import get_exp_name, get_exp_models_dir, get_exp_results_dir, get
 from src.helpers.dataframe_helper import load_data
 from src.helpers.file_helper import mk_dir, write_json_file
 from src.helpers.log_helper import log_duration
-from src.helpers.plt_helper import plot_feature_importance, plot_confusion_ma3x, plot_model_precision_recall_curve, plot_model_roc_curve, plot_permutation_importance
+from src.helpers.plt_helper import plot_feature_importance, plot_confusion_ma3x, plot_model_precision_recall_curve, plot_model_roc_curve
 from src.helpers.xls_helper import export_stats_xls
 
 
