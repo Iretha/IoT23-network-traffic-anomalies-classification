@@ -1,7 +1,7 @@
-# IoT-23-anomaly-detection
+# Detection and Classification of Network Traffic Anomalies
 
-Detection and Classification of Network Traffic Anomalies based on the light version of
-[IoT-23](https://www.stratosphereips.org/datasets-iot23) [^1] dataset.
+Experiments are based on the light version of
+[IoT-23](https://www.stratosphereips.org/datasets-iot23) [[1]](#footnote-1) dataset.
 
 ## 1. Prerequisites
 
@@ -104,5 +104,5 @@ Run content shuffling by running **run_step01_shuffle_file_content.py**
 
 
 ---
-[^1]: “Stratosphere Laboratory. A labeled dataset with malicious and benign IoT network traffic. January 22th. Agustin
+<a name="footnote-1">[1]</a>: “Stratosphere Laboratory. A labeled dataset with malicious and benign IoT network traffic. January 22th. Agustin
 Parmisano, Sebastian Garcia, Maria Jose Erquiaga. Online: https://www.stratosphereips.org/datasets-iot23
