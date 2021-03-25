@@ -25,7 +25,7 @@ source_files_dir = iot23_attacks_dir
 data_dir = iot23_data_dir
 experiments_dir = iot23_experiments_dir
 data_samples = [
-    get_data_sample(dataset_name='S04', rows_per_dataset_file=10_000),
+    # get_data_sample(dataset_name='S04', rows_per_dataset_file=10_000),
     get_data_sample(dataset_name='S16', rows_per_dataset_file=10_000),
 ]
 
@@ -51,10 +51,24 @@ training_algorithms = dict([
 # 2. Run run_step01_extract_data_from_scenarios.py
 # 3. Run run_step01_shuffle_file_content.py
 
+
 run_end_to_end_process(source_files_dir,
                        data_dir,
                        experiments_dir,
                        data_samples,
                        features,
                        training_algorithms,
-                       final_report_name='demo_scores.xlsx')
+                       overwrite=False,
+                       enable_data_preprocessing=False,
+                       enable_clean_data_charts=False,
+                       enable_experiment_data_preparation=False,
+                       enable_train_data_charts=False,
+                       enable_model_training=False,
+                       enable_score_tables=False,
+                       enable_score_charts=True,
+                       plot_corr=False,
+                       plot_cls_dist=False,
+                       plot_attr_dist=False,
+                       enable_model_insights=False,
+                       enable_final_report=False,
+                       final_report_name='custom_experiment_scores.xlsx')

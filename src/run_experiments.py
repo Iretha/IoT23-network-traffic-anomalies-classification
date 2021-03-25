@@ -52,4 +52,4 @@ run_end_to_end_process(source_files_dir,
                        data_samples,
                        features,
                        training_algorithms,
-                       'all_experiments_stats.xlsx')
+                       final_report_name='designed_experiments_scores.xlsx')
