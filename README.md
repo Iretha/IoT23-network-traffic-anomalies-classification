@@ -23,7 +23,7 @@ No  | <div style="width:100px">Name</div>| Version          | Description
 
 1. Download the lighter version of [IoT-23](https://www.stratosphereips.org/datasets-iot23) (archive size - 8.8 GB)
 > The lighter version contains only labeled flows without the pcaps files 
-2. Extract Archive (size - 8.8 GB)
+2. Extract Archive (size - approx. 44 GB)
 > 
 
 ## 2. Setup Project
