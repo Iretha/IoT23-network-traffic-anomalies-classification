@@ -8,11 +8,7 @@ from src.iot23 import decode_cls_label
 
 def export_stats_xls(output_dir,
                      exp_stats_dict,
-                     output_file_name='stats.xlsx',
-                     enable_score_tables=False):
-    if not enable_score_tables:
-        return
-
+                     output_file_name='stats.xlsx'):
     file_path = output_dir + output_file_name
 
     logging.info("===== Export xlsx file: " + file_path)

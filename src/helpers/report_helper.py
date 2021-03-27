@@ -15,7 +15,7 @@ def combine_reports(exp_dir,
     start_time = time.time()
 
     json_stats = __find_json_stats(exp_dir, experiment_names)
-    export_stats_xls(exp_dir, json_stats, output_file_name=output_file_name, enable_score_tables=True)
+    export_stats_xls(exp_dir, json_stats, output_file_name=output_file_name)
 
     log_duration(start_time, "===== Stats combined in")
 

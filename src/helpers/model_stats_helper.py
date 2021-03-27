@@ -110,11 +110,11 @@ def export_model_stats(experiment_name,
                                   enable_model_insights=enable_model_insights)
 
     stats['model_stats'] = model_stats
-    write_json_file(results_location + experiment_name + '_scores.json', stats)
-    export_stats_xls(results_location,
-                     {experiment_name: stats},
-                     output_file_name=experiment_name + '_scores.xlsx',
-                     enable_score_tables=enable_score_tables)
+    if enable_score_tables:
+        write_json_file(results_location + experiment_name + '_scores.json', stats)
+        export_stats_xls(results_location,
+                         {experiment_name: stats},
+                         output_file_name=experiment_name + '_scores.xlsx')
 
 
 def export_model_result_charts(results_location,
