@@ -1,10 +1,13 @@
 import logging
+import sys
+
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import scikitplot as sk_plt
 from pandas.plotting import scatter_matrix
+from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
 
 from src.iot23 import get_feature_selection, decode_labels
@@ -78,12 +81,11 @@ def plot_attr_values_distribution(output_dir,
 def plot_confusion_ma3x(output_dir,
                         y_test,
                         predictions,
-                        experiment_name,
                         title="Confusion Matrix",
                         file_name="conf_ma3x.png"):
     classes = unique_labels(y_test, predictions)
     cnt = len(classes)
-    cnt = cnt * 2 if cnt < 10 else cnt * 0.8
+    cnt = cnt * 2 if cnt < 10 else cnt * 0.7
     # labels = decode_labels(classes)
 
     sk_plt.metrics.plot_confusion_matrix(y_test,
@@ -93,6 +95,32 @@ def plot_confusion_ma3x(output_dir,
                                          title_fontsize="large",
                                          figsize=(cnt, cnt))
     export_plt(output_dir + file_name + '_n.png')
+
+
+def plot_confusion_ma3x_v2(output_dir,
+                           y_test,
+                           predictions,
+                           title="Confusion Matrix",
+                           file_name="conf_ma3x_v2.png",
+                           export=True):
+    classes = unique_labels(y_test, predictions)
+    cnt = len(classes)
+    small = cnt < 10
+    left = 0.2 if small else 0.12
+    size = cnt * 1.5 if small else cnt * 0.8
+    labels = decode_labels(classes)
+
+    fig, ax = plt.subplots(1, 1, figsize=(size, size))
+    fig.subplots_adjust(left=left)
+    ax = sk_plt.metrics.plot_confusion_matrix(y_test,
+                                              predictions,
+                                              normalize=True,
+                                              title=title + " (Normalized)",
+                                              title_fontsize="large",
+                                              ax=ax)
+    ax.set_xticklabels(labels, rotation=35)
+    ax.set_yticklabels(labels)
+    export_plt(output_dir + file_name)
 
 
 def plot_model_roc_curve(output_dir,
@@ -107,17 +135,26 @@ def plot_model_roc_curve(output_dir,
         y_prob = model.predict_proba(x_test)
         plot_roc_custom(output_dir, y_true, y_prob, experiment_name, model_name, file_name, "ROC")
     except:
-        y_decision_auc = model.decision_function(x_test)
-        plot_roc_custom(output_dir, y_true, y_decision_auc, experiment_name, model_name, file_name, "AUC")
+        try:
+            y_decision_auc = model.decision_function(x_test)
+            plot_roc_custom(output_dir, y_true, y_decision_auc, experiment_name, model_name, file_name, "AUC")
+        except:
+            logging.error("!!! Run test data fix to plot ROC for " + model_name, sys.exc_info()[0])
 
 
 def plot_roc_custom(output_dir, y_true, y_prob, name, model_name, file_name, type):
     try:
         fig, ax = plt.subplots(figsize=(10, 6))
         fig.subplots_adjust(top=0.8, right=0.65)
-        sk_plt.metrics.plot_roc(y_true, y_prob, title=name + "\n\n" + model_name + "\n" + type + " Curve\n", cmap='nipy_spectral', ax=ax)
+        sk_plt.metrics.plot_roc(y_true,
+                                y_prob,
+                                title=name + "\n\n" + model_name + "\n" + type + " Curve\n",
+                                cmap='nipy_spectral',
+                                ax=ax,
+                                plot_micro=False,
+                                plot_macro=False)
         plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize='small')
-        export_plt(output_dir + type + '_' + file_name)
+        export_plt(output_dir + file_name + '_' + type + '.png')
     except:
         logging.error("Oops! Could not plot " + type + " Curve for model " + name)
 
@@ -134,17 +171,20 @@ def plot_model_precision_recall_curve(output_dir,
         y_prob = model.predict_proba(x_test)
         plot_precision_recall_curve_custom(output_dir, y_true, y_prob, experiment_name, model_name, file_name, "Precision-Recall")
     except:
-        y_decision_auc = model.decision_function(x_test)
-        plot_precision_recall_curve_custom(output_dir, y_true, y_decision_auc, experiment_name, model_name, file_name, "Precision-Recall_AUC")
+        try:
+            y_decision_auc = model.decision_function(x_test)
+            plot_precision_recall_curve_custom(output_dir, y_true, y_decision_auc, experiment_name, model_name, file_name, "Precision-Recall_AUC")
+        except:
+            logging.error("Run test data fix to plot ROC for " + model_name)
 
 
 def plot_precision_recall_curve_custom(output_dir, y_true, y_prob, name, model_name, file_name, type):
     try:
         fig, ax = plt.subplots(figsize=(10, 6))
         fig.subplots_adjust(top=0.8, right=0.60)
-        sk_plt.metrics.plot_precision_recall(y_true, y_prob, title=name + "\n\n" + model_name + "\n" + type + " Curve\n", cmap='nipy_spectral', ax=ax)
+        sk_plt.metrics.plot_precision_recall(y_true, y_prob, title=name + "\n\n" + model_name + "\n" + type + " Curve\n", cmap='nipy_spectral', ax=ax, plot_micro=False)
         plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize='small')
-        export_plt(output_dir + file_name)
+        export_plt(output_dir + file_name + '_' + type + '.png')
     except:
         logging.error("Oops! Could not export Precision/ Recall Curve for model " + model_name)
 
