@@ -222,7 +222,7 @@ def get_data_sample(dataset_name='S04', rows_per_dataset_file=100_000):
         "description": sample_name,
         "files": datasets[dataset_name],  # empty => combine all source files
         "max_rows_per_file": rows_per_dataset_file,
-        "combined_data_file_name": sample_name + '.scv',
+        "combined_data_file_name": sample_name + '.csv',
         "clean_data_file_name": sample_name + '_clean.csv'}
 
 
