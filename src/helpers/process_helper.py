@@ -1,5 +1,5 @@
 from src.helpers.data_helper import run_data_preprocessing
-from src.helpers.data_stats_helper import explore_clean_data, explore_experiments_train_test_data
+from src.helpers.data_stats_helper import explore_data, explore_experiments_train_test_data
 from src.helpers.experiments_helper import run_experiments
 from src.helpers.file_helper import list_folder_names
 from src.helpers.model_stats_helper import run_experiments_reports
@@ -40,11 +40,11 @@ def run_end_to_end_process(source_files_dir,
 
     # Explore Data
     if enable_clean_data_charts:
-        explore_clean_data(data_dir,
-                           data_samples=data_samples,
-                           plot_corr=plot_corr,
-                           plot_cls_dist=plot_cls_dist,
-                           plot_attr_dist=plot_attr_dist)
+        explore_data(data_dir,
+                     data_samples=data_samples,
+                     plot_corr=plot_corr,
+                     plot_cls_dist=plot_cls_dist,
+                     plot_attr_dist=plot_attr_dist)
 
     # Run Experiments
     if enable_experiment_data_preparation or enable_model_training:

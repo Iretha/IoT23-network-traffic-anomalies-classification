@@ -16,9 +16,8 @@ add_logger(file_name='04_train_models.log')
 # Selected Data Files
 data_file_dir = iot23_data_dir
 data_samples = [
-    get_data_sample(dataset_name='S04', rows_per_dataset_file=100_000),
-    get_data_sample(dataset_name='S16', rows_per_dataset_file=100_000),
-    #
+    get_data_sample(dataset_name='S16', rows_per_dataset_file=10_000),  # ~ 1 min
+
     # get_data_sample(dataset_name='S04', rows_per_dataset_file=5_000_000),
     # get_data_sample(dataset_name='S16', rows_per_dataset_file=5_000_000),
 ]
