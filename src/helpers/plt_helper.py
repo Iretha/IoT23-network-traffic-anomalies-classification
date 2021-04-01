@@ -33,7 +33,12 @@ def plot_correlations(output_dir,
     export_sns(fig, file_path, export=export)
 
 
-def plot_class_values_distribution(output_dir, df, col_name, title="Class Frequency", file_name="data_distribution.png", export=True):
+def plot_class_values_distribution(output_dir,
+                                   df,
+                                   col_name,
+                                   title="Class Frequency",
+                                   file_name="data_distribution.png",
+                                   export=True):
     unique, counts = np.unique(df[col_name], return_counts=True)
     values = counts
     x_values = unique
@@ -182,7 +187,7 @@ def plot_model_precision_recall_curve(output_dir,
 def plot_precision_recall_curve_custom(output_dir, y_true, y_prob, name, model_name, file_name, type):
     try:
         fig, ax = plt.subplots(figsize=(10, 6))
-        fig.subplots_adjust(top=0.8, right=0.60)
+        fig.subplots_adjust(top=0.8, right=0.55)
         sk_plt.metrics.plot_precision_recall(y_true, y_prob, title=name + "\n\n" + model_name + "\n" + type + " Curve\n", cmap='nipy_spectral', ax=ax, plot_micro=False)
         plt.legend(bbox_to_anchor=(1.05, 1), loc='best', fontsize='medium')
         export_plt(output_dir + file_name + '_' + type + '.png')

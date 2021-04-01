@@ -14,11 +14,12 @@ from src.iot23 import get_exp_name, get_exp_models_dir, get_exp_results_dir, get
 from src.helpers.dataframe_helper import load_data
 from src.helpers.file_helper import mk_dir, write_json_file
 from src.helpers.log_helper import log_duration
-from src.helpers.plt_helper import plot_feature_importance, plot_confusion_ma3x, plot_model_precision_recall_curve, plot_model_roc_curve
+from src.helpers.plt_helper import plot_feature_importance, plot_confusion_ma3x, plot_model_precision_recall_curve, plot_model_roc_curve, plot_confusion_ma3x_v2
 from src.helpers.xls_helper import export_stats_xls
 
 
-def run_experiments_reports(exp_home_dir,
+def run_experiments_reports(data_dir,
+                            exp_home_dir,
                             data_samples,
                             feature_selections,
                             enable_score_tables=True,
@@ -27,7 +28,9 @@ def run_experiments_reports(exp_home_dir,
     for data_sample in data_samples:
         for feature_selection in feature_selections:
             exp_name = get_exp_name(data_sample, feature_selection['description'])
-            explore_experiment_results(exp_home_dir,
+            explore_experiment_results(data_dir,
+                                       exp_home_dir,
+                                       feature_selection['features'],
                                        exp_name,
                                        data_sample['clean_data_file_name'],
                                        enable_score_tables=enable_score_tables,
@@ -35,7 +38,9 @@ def run_experiments_reports(exp_home_dir,
                                        enable_model_insights=enable_model_insights)
 
 
-def explore_experiment_results(exp_home_dir,
+def explore_experiment_results(data_dir,
+                               exp_home_dir,
+                               features,
                                exp_name,
                                data_file_name,
                                enable_score_tables=True,
@@ -46,10 +51,9 @@ def explore_experiment_results(exp_home_dir,
     mk_dir(res_dir)
 
     # Load test data
-    experiment_data_dir = exp_home_dir + get_exp_data_dir(exp_name)
     classification_col = data_cleanup["classification_col"]
-    test_data_file_path = experiment_data_dir + get_test_data_path(data_file_name)
-    x_test, y_test = load_data(test_data_file_path, classification_col)
+    test_data_file_path = data_dir + get_test_data_path(data_file_name)
+    x_test, y_test = load_data(test_data_file_path, classification_col, features=features)
 
     # Export model stats
     exp_models_dir = get_exp_models_dir(exp_home_dir + exp_name)
@@ -128,12 +132,11 @@ def export_model_result_charts(results_location,
     if not enable_score_charts:
         return
 
-    plot_confusion_ma3x(results_location,
-                        y_test,
-                        y_pred,
-                        experiment_name,
-                        title=experiment_name + "\n\n" + model_name + "\nConfusion Matrix",
-                        file_name=model_name + "_conf_m3x.png")
+    plot_confusion_ma3x_v2(results_location,
+                           y_test,
+                           y_pred,
+                           title=experiment_name + "\n\n" + model_name + "\nConfusion Matrix",
+                           file_name=model_name + "_conf_m3x.png")
 
     plot_model_roc_curve(results_location,
                          model,
