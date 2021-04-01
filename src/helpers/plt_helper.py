@@ -153,7 +153,8 @@ def plot_roc_custom(output_dir, y_true, y_prob, name, model_name, file_name, typ
                                 ax=ax,
                                 plot_micro=False,
                                 plot_macro=False)
-        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize='small')
+        # plt.legend(bbox_to_anchor=(1.05, 1), loc='best', fontsize='medium')
+        plt.legend(bbox_to_anchor=(1.05, 1), loc='best', fontsize='medium')
         export_plt(output_dir + file_name + '_' + type + '.png')
     except:
         logging.error("Oops! Could not plot " + type + " Curve for model " + name)
@@ -183,7 +184,7 @@ def plot_precision_recall_curve_custom(output_dir, y_true, y_prob, name, model_n
         fig, ax = plt.subplots(figsize=(10, 6))
         fig.subplots_adjust(top=0.8, right=0.60)
         sk_plt.metrics.plot_precision_recall(y_true, y_prob, title=name + "\n\n" + model_name + "\n" + type + " Curve\n", cmap='nipy_spectral', ax=ax, plot_micro=False)
-        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize='small')
+        plt.legend(bbox_to_anchor=(1.05, 1), loc='best', fontsize='medium')
         export_plt(output_dir + file_name + '_' + type + '.png')
     except:
         logging.error("Oops! Could not export Precision/ Recall Curve for model " + model_name)
