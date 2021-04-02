@@ -16,12 +16,11 @@ from src.helpers.experiments_helper import train_models
 from src.helpers.file_helper import list_folder_names
 from src.helpers.log_helper import add_logger
 from src.helpers.model_stats_helper import export_model_stats
-from src.helpers.process_helper import run_end_to_end_process
 from src.helpers.report_helper import combine_reports
 from src.iot23 import get_data_sample, iot23_metadata, feature_selections, data_cleanup
 
 # Add Logger
-add_logger(file_name='demo.log')
+add_logger(file_name='custom.log')
 
 # Setup warnings
 warnings.filterwarnings("ignore", category=sklearn.exceptions.UndefinedMetricWarning)
