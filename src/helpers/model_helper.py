@@ -10,6 +10,7 @@ from src.helpers.dataframe_helper import load_data
 
 def create_models(models_dir,
                   train_data_file_path,
+                  features,
                   classification_col,
                   algorithms,
                   overwrite=False):
@@ -17,7 +18,7 @@ def create_models(models_dir,
     start_time = time.time()
 
     # Load Data
-    x_train, y_train = load_data(train_data_file_path, classification_col)
+    x_train, y_train = load_data(train_data_file_path, classification_col, features=features)
 
     # Train & Save Models
     for model_name in algorithms.keys():

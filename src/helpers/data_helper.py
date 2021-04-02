@@ -6,18 +6,20 @@ from os import path
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
+from src.helpers.fix_test_data_for_roc import add_missing_class_rows_to_test_data
 from src.iot23 import format_line, get_train_data_path, get_test_data_path
 from src.helpers.dataframe_helper import df_get, df_transform_to_numeric, df_encode_objects, save_to_csv, write_to_csv
-from src.helpers.file_helper import mk_dir, combine_files, shuffle_file_content
+from src.helpers.file_helper import mk_dir, combine_files, shuffle_file_content, overwrite_existing_file
 from src.helpers.log_helper import log_duration
 
 
-def run_data_preprocessing(sources_dir,
-                           output_dir,
-                           header_line,
-                           cleanup_conf,
-                           data_samples=None,
-                           overwrite=False):
+def prepare_data(sources_dir,
+                 output_dir,
+                 header_line,
+                 cleanup_conf,
+                 test_size=0.2,
+                 data_samples=None,
+                 overwrite=False):
     if data_samples is None:
         return
 
@@ -34,6 +36,7 @@ def run_data_preprocessing(sources_dir,
 
         exists = path.exists(output_dir + clean_data_file_name)
         if overwrite is True or not exists:
+
             # Combine slices from files
             combine_files(sources_dir,
                           source_files,
@@ -53,6 +56,13 @@ def run_data_preprocessing(sources_dir,
 
             # Shuffle content
             shuffle_file_content(output_dir, clean_data_file_name)
+
+            # Split into train & test
+            split_into_train_and_test(output_dir,
+                                      clean_data_file_name,
+                                      output_dir,
+                                      test_size=test_size,
+                                      overwrite=overwrite)
 
         else:
             logging.info("Data file " + clean_data_file_name + " exists, skipping call...")
@@ -108,6 +118,9 @@ def __clean_data(source_dir,
     # Save cleaned data to a file
     save_to_csv(dataframe, output_dir, output_file, append=False)
 
+    # FIXME overwrite the original file in order to save storage space
+    # # Overwrite previous file
+    # overwrite_existing_file(source_file_path, output_dir + output_file)
     log_duration(start_time, '-----> Cleaning finished in')
 
 
@@ -126,7 +139,7 @@ def split_into_train_and_test(source_dir, source_data_file, dest_dir, test_size=
         df = df_get(source_dir + source_data_file, delimiter=',')
 
         # 1. Select features
-        if features is not None:
+        if features is not None and len(features) > 0:
             df = df[features]
 
         # 2. Split Data
@@ -137,6 +150,9 @@ def split_into_train_and_test(source_dir, source_data_file, dest_dir, test_size=
 
         # 4. Save Test Data
         write_to_csv(test, file_path_test, mode='w')
+
+        # 5. Fix missing classes in test (ROC fix)
+        add_missing_class_rows_to_test_data(file_path_train, file_path_test)
 
         log_duration(start_time, '-----> Splitting data finished in')
 

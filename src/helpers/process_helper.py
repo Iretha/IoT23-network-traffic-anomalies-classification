@@ -1,8 +1,8 @@
-from src.helpers.data_helper import run_data_preprocessing
-from src.helpers.data_stats_helper import explore_clean_data, explore_experiments_train_test_data
-from src.helpers.experiments_helper import run_experiments
+from src.helpers.data_helper import prepare_data
+from src.helpers.data_stats_helper import explore_data
+from src.helpers.experiments_helper import train_models
 from src.helpers.file_helper import list_folder_names
-from src.helpers.model_stats_helper import run_experiments_reports
+from src.helpers.model_stats_helper import export_model_stats
 from src.helpers.report_helper import combine_reports
 from src.iot23 import iot23_metadata, data_cleanup
 
@@ -31,48 +31,41 @@ def run_end_to_end_process(source_files_dir,
 
     # Prepare Data
     if enable_data_preprocessing:
-        run_data_preprocessing(source_files_dir,
-                               data_dir,
-                               file_header,
-                               data_cleanup,
-                               data_samples=data_samples,
-                               overwrite=overwrite)
+        prepare_data(source_files_dir,
+                     data_dir,
+                     file_header,
+                     data_cleanup,
+                     data_samples=data_samples,
+                     overwrite=overwrite)
 
     # Explore Data
     if enable_clean_data_charts:
-        explore_clean_data(data_dir,
-                           data_samples=data_samples,
-                           plot_corr=plot_corr,
-                           plot_cls_dist=plot_cls_dist,
-                           plot_attr_dist=plot_attr_dist)
+        explore_data(data_dir,
+                     explore_data_sample=True,
+                     explore_split_data=enable_train_data_charts,
+                     data_samples=data_samples,
+                     plot_corr=plot_corr,
+                     plot_cls_dist=plot_cls_dist,
+                     plot_attr_dist=plot_attr_dist)
 
     # Run Experiments
     if enable_experiment_data_preparation or enable_model_training:
-        run_experiments(data_dir,
-                        experiments_dir,
-                        data_samples,
-                        features,
-                        training_algorithms,
-                        overwrite=overwrite,
-                        enable_exp_data_preparation=enable_experiment_data_preparation,
-                        enable_model_training=enable_model_training)
-
-    # Explore Train/ Test Data
-    if enable_train_data_charts:
-        explore_experiments_train_test_data(experiments_dir,
-                                            data_samples,
-                                            features,
-                                            plot_corr=plot_corr,
-                                            plot_cls_dist=plot_cls_dist,
-                                            plot_attr_dist=plot_attr_dist)
+        train_models(data_dir,
+                     experiments_dir,
+                     data_samples,
+                     features,
+                     training_algorithms,
+                     overwrite=overwrite,
+                     enable_exp_data_preparation=enable_experiment_data_preparation,
+                     enable_model_training=enable_model_training)
 
     # Explore Experiments Output
-    run_experiments_reports(experiments_dir,
-                            data_samples,
-                            features,
-                            enable_score_tables=enable_score_tables,
-                            enable_score_charts=enable_score_charts,
-                            enable_model_insights=enable_model_insights)
+    export_model_stats(experiments_dir,
+                       data_samples,
+                       features,
+                       enable_score_tables=enable_score_tables,
+                       enable_score_charts=enable_score_charts,
+                       enable_model_insights=enable_model_insights)
 
     # Combine all stats into single XLS
     if enable_final_report:
