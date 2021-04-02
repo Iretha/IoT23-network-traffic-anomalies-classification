@@ -6,32 +6,31 @@ from src.helpers.data_helper import split_into_train_and_test
 from src.helpers.model_helper import create_models
 
 
-def run_experiments(data_dir,
-                    experiments_dir,
-                    data_samples,
-                    features_selections,
-                    training_algorithms,
-                    overwrite=False,
-                    enable_model_training=True):
+def train_models(data_dir,
+                 experiments_dir,
+                 data_samples,
+                 features_selections,
+                 training_algorithms,
+                 overwrite=False,
+                 enable_model_training=True):
     for data_sample in data_samples:
         for feature_selection in features_selections:
-            __run_experiment(data_dir,
-                             experiments_dir,
-                             data_sample,
-                             feature_selection,
-                             training_algorithms,
-                             overwrite=overwrite,
-                             enable_model_training=enable_model_training)
+            __train_models(data_dir,
+                           experiments_dir,
+                           data_sample,
+                           feature_selection,
+                           training_algorithms,
+                           overwrite=overwrite,
+                           enable_model_training=enable_model_training)
 
 
-def __run_experiment(data_dir,
-                     experiments_dir,
-                     data_sample,
-                     feature_selection,
-                     training_algorithms,
-                     overwrite=False,
-                     enable_model_training=True):
-
+def __train_models(data_dir,
+                   experiments_dir,
+                   data_sample,
+                   feature_selection,
+                   training_algorithms,
+                   overwrite=False,
+                   enable_model_training=True):
     experiment_name = get_exp_name(data_sample, feature_selection['description'])
     data_file_name = data_sample['clean_data_file_name']
     features = feature_selection['features']

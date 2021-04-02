@@ -13,13 +13,13 @@ from src.helpers.file_helper import mk_dir, combine_files, shuffle_file_content,
 from src.helpers.log_helper import log_duration
 
 
-def run_data_preprocessing(sources_dir,
-                           output_dir,
-                           header_line,
-                           cleanup_conf,
-                           test_size=0.2,
-                           data_samples=None,
-                           overwrite=False):
+def prepare_data(sources_dir,
+                 output_dir,
+                 header_line,
+                 cleanup_conf,
+                 test_size=0.2,
+                 data_samples=None,
+                 overwrite=False):
     if data_samples is None:
         return
 
