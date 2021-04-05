@@ -48,7 +48,7 @@ def run_end_to_end_process(source_files_dir,
                      plot_cls_dist=plot_cls_dist,
                      plot_attr_dist=plot_attr_dist)
 
-    # Run Experiments
+    # Train Models
     if enable_experiment_data_preparation or enable_model_training:
         train_models(data_dir,
                      experiments_dir,
