@@ -56,11 +56,11 @@ def run_end_to_end_process(source_files_dir,
                      features,
                      training_algorithms,
                      overwrite=overwrite,
-                     enable_exp_data_preparation=enable_experiment_data_preparation,
                      enable_model_training=enable_model_training)
 
     # Explore Experiments Output
-    export_model_stats(experiments_dir,
+    export_model_stats(data_dir,
+                       experiments_dir,
                        data_samples,
                        features,
                        enable_score_tables=enable_score_tables,

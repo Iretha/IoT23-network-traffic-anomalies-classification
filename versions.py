@@ -12,6 +12,7 @@ import matplotlib
 import seaborn
 import psutil
 import scikitplot
+import xlsxwriter
 
 
 def print_versions():
