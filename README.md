@@ -69,8 +69,9 @@ Run content shuffling by running **run_step01_shuffle_file_content.py**
 
 #### 1.2. Run demo by running **run_demo.py**
 
-> TODO
-
+> Use this option to check if everything is ok. 
+> It uses only 10_000 records per file, so that the whole process 
+> runs for a couple of minutes, if the data is already prepared.
 
 # Option 2: Run Designed Experiments
 
