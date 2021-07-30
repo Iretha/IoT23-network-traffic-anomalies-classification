@@ -87,7 +87,7 @@ train_models(data_dir,
 export_model_stats(data_dir,
                    experiments_dir,
                    data_samples,
-                   feature_selections,
+                   features,
                    enable_score_tables=True,
                    enable_score_charts=True,
                    enable_model_insights=False)
